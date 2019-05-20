@@ -59,32 +59,32 @@ public class Projectbismillah {
                 }
                     if (login > -1) {
                         do {
-                            System.out.println("No rekening anda: " + a[login][3]);
+                            System.out.println("No rekening anda: " + a[login+1][3]);
                             System.out.println("1. Informasi Saldo\n2. Setor`");
                             System.out.println("3. Penarikan Tunai");
                             System.out.println("4. Transfer");
                             System.out.println("5. Keluar");
                             System.out.println("Pilihan Anda ?");
-                            int saldo = Integer.parseInt(a[login][4]);
+                            int saldo = Integer.parseInt(a[login+1][4]);
                             int menu = in.nextInt();
                             switch (menu) {
                                 case 1:
                                     System.out.println("Saldo Anda");
-                                    System.out.println("Rp" + a[login][4]);
+                                    System.out.println("Rp" + a[login+1][4]);
                                     break;
                                 case 2:
                                     System.out.println("Saldo Anda");
-                                    System.out.println("Rp" + a[login][4]);
+                                    System.out.println("Rp" + a[login+1][4]);
                                     System.out.println("Berapa saldo yang ingin anda setor? ");
                                     int saldoIn = in.nextInt();
                                     saldo += saldoIn;
-                                    a[login][4] = String.valueOf(saldo);
+                                    a[login+1][4] = String.valueOf(saldo);
                                     System.out.println("Saldo Anda");
-                                    System.out.println("Rp" + a[login][4]);
+                                    System.out.println("Rp" + a[login+1][4]);
                                     break;
                                 case 3:
                                     System.out.println("Saldo Anda");
-                                    System.out.println("Rp" + a[login][4]);
+                                    System.out.println("Rp" + a[login+1][4]);
                                     System.out.println("Berapa saldo yang ingin anda ambil? ");
                                     int saldoOut = in.nextInt();
                                     if (saldoOut < saldo - 50000) {
@@ -92,14 +92,14 @@ public class Projectbismillah {
                                     } else {
                                         System.out.println("Saldo anda tidak mencukupi");
                                     }
-                                    a[login][4] = String.valueOf(saldo);
+                                    a[login+1][4] = String.valueOf(saldo);
                                     System.out.println("Saldo Anda");
-                                    System.out.println("Rp" + a[login][4]);
+                                    System.out.println("Rp" + a[login+1][4]);
                                     break;
                                 case 4:
                                     boolean back = false;
                                     do {
-                                        String bank = a[login][2];
+                                        String bank = a[login+1][2];
                                         System.out.println("1. Ke Bank IBN");
                                         System.out.println("2. Selain ke Bank IBN");
                                         System.out.println("3. Kembali");
@@ -130,7 +130,7 @@ public class Projectbismillah {
                                                     if (transfer < saldo - 50000) {
                                                         saldo -= transfer;
                                                         saldoTarget += transfer;
-                                                        a[login][4] = String.valueOf(saldo);
+                                                        a[login+1][4] = String.valueOf(saldo);
                                                         a[available][4] = String.valueOf(saldoTarget);
                                                     }
                                                 } else {
@@ -159,7 +159,7 @@ public class Projectbismillah {
                                                     if (transfer < saldo - 50000 - 500) {
                                                         saldo -= transfer + 500;
                                                         saldoTarget += transfer;
-                                                        a[login][4] = String.valueOf(saldo);
+                                                        a[login+1][4] = String.valueOf(saldo);
                                                         a[available][4] = String.valueOf(saldoTarget);
                                                     }
                                                 } else {
@@ -205,15 +205,34 @@ public class Projectbismillah {
         String saldo = String.valueOf(saldoInt);
         int dataLength = usernew.length;
         String[][] copy = new String[dataLength + 1][5];
+        int a = copy.length;
+        System.out.println(a);
         for (int i = 0; i < dataLength; i++) {
             copy[i] = usernew[i];
         }
+////        print copy
+//for (int i = 0; i < copy.length; i++) {
+//            for (int j = 0; j < 5; j++) {
+//                System.out.print(copy[i][j]+" ");
+//        
+//    }System.out.println("");
+//            
+//        }
         String[] newUser = {username, pin, bank, norek, saldo};
-        copy[copy.length - 1] = newUser;
+        copy[copy.length-1] = newUser;
+        
+////        print copy
+for (int i = 0; i < copy.length; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print(copy[i][j]+" ");
+        
+    }
+System.out.println("");
+        
         usernew = copy;
     }
-
-    public static void login(String username, String pin) {
+    }
+    public static int login(String username, String pin) {
         int login = -1;
         if (login == -1) {
             if (lama == 0) {
@@ -224,11 +243,13 @@ public class Projectbismillah {
 //                        login = 1;
                         break;
                     }
+                    lama = 2;
 //                    else {
 //                        lama = 0;
 //                        
 //                    }
-                }lama = 2;
+                }
+//                lama = 2;
                 if (lama == 2) {
                     for (int i = 0; i < usernew.length; i++) {
                         if (username.equals(usernew[i][0]) && pin.equals(usernew[i][1])) {
@@ -240,7 +261,7 @@ public class Projectbismillah {
                     }
                 }
             }
-        }
+        }return login;
     }
 
 }
